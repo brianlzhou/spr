@@ -703,12 +703,26 @@ function computeTraderStats(spr, wti) {
     byPresident.set(president.name, stats);
   }
 
-  const finish = (stats) => ({
-    ...stats,
-    avgOut: stats.outKb ? stats.outValueK / stats.outKb : null,
-    avgIn: stats.inKb ? stats.inValueK / stats.inKb : null,
-    netDollars: (stats.outValueK - stats.inValueK) * 1000
-  });
+  // Oil prices rise and fall by era, so each sale price is also compared with
+  // the average daily price over the president's own term (from 1986, where
+  // the price series starts, to today for a sitting president).
+  const termAverage = (name) => {
+    const president = PRESIDENTS.find((entry) => entry.name === name);
+    const days = wti.filter((point) => point.date >= president.start && point.date < president.end);
+    return days.length ? days.reduce((sum, point) => sum + point.value, 0) / days.length : null;
+  };
+  const finish = (stats) => {
+    const avgOut = stats.outKb ? stats.outValueK / stats.outKb : null;
+    const term = stats.name ? termAverage(stats.name) : null;
+    return {
+      ...stats,
+      avgOut,
+      avgIn: stats.inKb ? stats.inValueK / stats.inKb : null,
+      termAvg: term,
+      vsTerm: avgOut != null && term ? avgOut / term - 1 : null,
+      netDollars: (stats.outValueK - stats.inValueK) * 1000
+    };
+  };
   const rows = [...byPresident.values()].map(finish).sort((left, right) => (right.avgOut ?? -1) - (left.avgOut ?? -1));
   return { rows, total: finish(total), excludedKb };
 }
@@ -716,15 +730,26 @@ function computeTraderStats(spr, wti) {
 function renderTrade(data) {
   const { spr, wti } = data;
   const { rows, total, excludedKb } = computeTraderStats(spr, wti);
-  const bestSeller = rows.find((row) => row.outKb >= 10_000);
+  // Rankings only count presidents who let out at least 10 million barrels.
+  const qualified = rows.filter((row) => row.outKb >= 10_000);
+  const bestSeller = qualified[0];
+  const runnerUp = qualified[1];
+  const bestTimed = [...qualified].sort((left, right) => right.vsTerm - left.vsTerm)[0];
   const sprFrom = spr.filter((point) => point.date >= wti[0].date);
+  const gap = bestSeller.avgOut - runnerUp.avgOut;
+  const gapText = gap < 1 ? `${Math.round(gap * 100)} cents` : `$${gap.toFixed(2)}`;
+  const pct = (value) => `${value < 0 ? MINUS : "+"}${Math.abs(Math.round(value * 100))}%`;
+  const prose = (name) => (name === "Trump (2nd term)" ? "Trump's second term" : name);
 
   const { main, aside } = section(
     "presidents",
     "Which president sold oil at the best price?",
     sentence(
-      "For each week the level moved, the change is valued at that week's average oil price and credited to whoever was in office. Selling high and buying back low is good trading, whatever the reason for the sale. ",
-      `Since 1986 the reserve has let out ${formatBarrels(total.outKb)} barrels at an average of $${total.avgOut.toFixed(2)} and taken in ${formatBarrels(total.inKb)} at $${total.avgIn.toFixed(2)}: on paper, Washington has sold high and bought low.`
+      "Every week the reserve's level moved, the change is valued at that week's average oil price and credited to whoever was in office. ",
+      `By that measure ${prose(bestSeller.name)} has let out oil at the highest average price, $${bestSeller.avgOut.toFixed(2)} a barrel, ${gapText} ahead of ${prose(runnerUp.name)}. `,
+      bestTimed === bestSeller
+        ? `Timed against the market of the day, ${prose(bestTimed.name)} also sold highest: ${Math.round(bestTimed.vsTerm * 100)}% above the average price of that term.`
+        : `But oil prices rise and fall by era. Timed against the market of the day, ${prose(bestTimed.name)} sold best: ${Math.round(bestTimed.vsTerm * 100)}% above the average price of that term.`
     )
   );
 
@@ -767,7 +792,7 @@ function renderTrade(data) {
   const table = el("table", "trader");
   const head = el("tr");
 
-  for (const column of ["President", "Let out", "Average price", "Took in", "Average price", "Net cash"]) {
+  for (const column of ["President", "Let out", "Average price", "vs. term average", "Took in", "Average price", "Net cash"]) {
     head.append(el("th", null, column));
   }
 
@@ -781,11 +806,13 @@ function renderTrade(data) {
     const mark = el("span", `party party-${row.party}`);
     mark.setAttribute("aria-hidden", "true");
     name.append(mark, row.name);
-    if (row === bestSeller) name.append(el("span", "tag", "Best seller"));
+    if (row === bestSeller) name.append(el("span", "tag", "Top price"));
+    if (row === bestTimed) name.append(el("span", "tag tag-alt", "Best timed"));
     tr.append(
       name,
       el("td", null, row.outKb ? `${formatBarrels(row.outKb)} bbl` : "—"),
       el("td", null, row.avgOut ? `$${row.avgOut.toFixed(2)}` : "—"),
+      el("td", null, row.vsTerm != null && row.outKb >= 10_000 ? pct(row.vsTerm) : "—"),
       el("td", null, row.inKb ? `${formatBarrels(row.inKb)} bbl` : "—"),
       el("td", null, row.avgIn ? `$${row.avgIn.toFixed(2)}` : "—"),
       el("td", null, formatMoney(row.netDollars))
@@ -806,7 +833,7 @@ function renderTrade(data) {
       "fine",
       `EIA reports the level once a week, so each week's change is priced at the average of that week's daily spot prices. These are implied trades: real sales, loans and exchanges are priced differently, loans come back as oil, and a release is not profit. ${
         excludedKb ? `The ${formatBarrels(excludedKb)} barrels that moved before 1986 are left out, because the price series starts that year. ` : ""
-      }The best-seller tag goes to the highest average price among presidents who let out at least 10 million barrels.`
+      }\u201cvs. term average\u201d compares each average price with the average daily oil price over that president's term, so a president who sold when oil was cheap for everyone isn't penalized. Rankings count only presidents who let out at least 10 million barrels.`
     )
   );
 
@@ -1120,11 +1147,11 @@ async function init() {
   };
 
   renderHero(data);
+  renderTrade(data);
   renderRelease(data);
   renderFlyingBlind(data);
   renderHowLow(data);
   renderReleases(data);
-  renderTrade(data);
   renderRefill(data);
   renderCover(data);
   renderShare(data);

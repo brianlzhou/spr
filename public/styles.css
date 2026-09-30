@@ -591,6 +591,10 @@ table.trader {
   vertical-align: 1px;
 }
 
+.trader .tag-alt {
+  background: var(--surface-2);
+}
+
 .party {
   display: inline-block;
   width: 8px;
