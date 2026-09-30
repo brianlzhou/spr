@@ -595,6 +595,10 @@ table.trader {
   background: var(--surface-2);
 }
 
+.trader .tag-cash {
+  background: color-mix(in srgb, var(--party-d-key) 18%, var(--page));
+}
+
 .party {
   display: inline-block;
   width: 8px;

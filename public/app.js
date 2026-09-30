@@ -735,6 +735,7 @@ function renderTrade(data) {
   const bestSeller = qualified[0];
   const runnerUp = qualified[1];
   const bestTimed = [...qualified].sort((left, right) => right.vsTerm - left.vsTerm)[0];
+  const mostCash = [...qualified].sort((left, right) => right.netDollars - left.netDollars)[0];
   const sprFrom = spr.filter((point) => point.date >= wti[0].date);
   const gap = bestSeller.avgOut - runnerUp.avgOut;
   const gapText = gap < 1 ? `${Math.round(gap * 100)} cents` : `$${gap.toFixed(2)}`;
@@ -807,6 +808,7 @@ function renderTrade(data) {
     mark.setAttribute("aria-hidden", "true");
     name.append(mark, row.name);
     if (row === bestSeller) name.append(el("span", "tag", "Top price"));
+    if (row === mostCash) name.append(el("span", "tag tag-cash", "Most cash"));
     if (row === bestTimed) name.append(el("span", "tag tag-alt", "Best timed"));
     tr.append(
       name,
