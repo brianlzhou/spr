@@ -80,7 +80,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: 16px;
+  scroll-padding-top: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -960,6 +960,14 @@ table.trader {
 
 .sec {
   padding-block: clamp(64px, 9vw, 112px) 0;
+  /* Land nav jumps with the heading just below the top edge, inside the
+     section's own padding, so nothing from the section above shows. */
+  scroll-margin-top: calc(28px - clamp(64px, 9vw, 112px));
+}
+
+/* Enough room below the last section for a nav jump to bring it to the top. */
+.sec:last-child {
+  min-height: calc(100vh - 120px);
 }
 
 .sec-grid {

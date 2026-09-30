@@ -1133,7 +1133,58 @@ async function init() {
   renderReading();
   renderMethod(data);
 
-  if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+  await restoreScroll();
+}
+
+// The page is drawn after its data loads, so the browser's own scroll
+// restoration runs against a half-built page and lands near the top. Keep the
+// position ourselves and put it back once the charts have been drawn.
+const SCROLL_KEY = `scroll:${location.pathname}`;
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+addEventListener("pagehide", () => {
+  try {
+    sessionStorage.setItem(SCROLL_KEY, String(Math.round(scrollY)));
+  } catch {
+    // storage unavailable (private mode); a reload starts at the top
+  }
+});
+
+async function restoreScroll() {
+  const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+
+  // Fonts change line heights, and charts draw a frame after they're laid
+  // out, so wait until the page height holds for three frames (or a second).
+  await document.fonts?.ready;
+  let height = -1;
+  let steady = 0;
+
+  for (let waited = 0; steady < 3 && waited < 60; waited += 1) {
+    await frame();
+    const now = document.documentElement.scrollHeight;
+    steady = now === height ? steady + 1 : 0;
+    height = now;
+  }
+
+  let saved = null;
+
+  try {
+    saved = sessionStorage.getItem(SCROLL_KEY);
+  } catch {
+    saved = null;
+  }
+
+  const reload = performance.getEntriesByType?.("navigation")[0]?.type === "reload";
+
+  if (reload && saved != null) {
+    scrollTo({ top: Number(saved), behavior: "instant" });
+  } else if (location.hash) {
+    document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: "instant" });
+  }
 }
 
 init();
+
