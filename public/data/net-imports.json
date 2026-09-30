@@ -1,13 +1,14 @@
 {
   "id": "net-imports",
-  "asOf": "2026-09-18",
+  "asOf": "2026-09-25",
   "sourceLabel": "EIA weekly U.S. net imports of crude oil and products (WTTNTUS2), thousand barrels a day",
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WTTNTUS2&f=W",
   "meta": {
-    "releaseDate": "9/23/2026",
-    "nextRelease": "9/30/2026"
+    "releaseDate": "9/30/2026",
+    "nextRelease": "10/7/2026",
+    "latestFrom": null
   },
-  "updatedAt": "2026-09-30T06:36:11.618Z",
+  "updatedAt": "2026-09-30T20:01:10.434Z",
   "series": [
     { "date": "1991-02-08", "value": 5653 },
     { "date": "1991-02-15", "value": 5349 },
@@ -1867,6 +1868,7 @@
     { "date": "2026-08-28", "value": -4077 },
     { "date": "2026-09-04", "value": -3759 },
     { "date": "2026-09-11", "value": -3740 },
-    { "date": "2026-09-18", "value": -3803 }
+    { "date": "2026-09-18", "value": -3803 },
+    { "date": "2026-09-25", "value": -3849 }
   ]
 }

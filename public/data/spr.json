@@ -5,10 +5,10 @@
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCSSTUS1&f=W",
   "meta": {
     "releaseDate": "9/30/2026",
-    "nextRelease": null,
-    "latestFrom": "https://ir.eia.gov/wpsr/table4.csv"
+    "nextRelease": "10/7/2026",
+    "latestFrom": null
   },
-  "updatedAt": "2026-09-30T14:50:00.925Z",
+  "updatedAt": "2026-09-30T20:01:10.434Z",
   "series": [
     { "date": "1982-08-20", "value": 270455 },
     { "date": "1982-08-27", "value": 272603 },

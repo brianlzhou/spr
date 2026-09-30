@@ -1,13 +1,14 @@
 {
   "id": "oil-use",
-  "asOf": "2026-09-18",
+  "asOf": "2026-09-25",
   "sourceLabel": "EIA weekly U.S. petroleum products supplied (WRPUPUS2), thousand barrels a day",
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WRPUPUS2&f=W",
   "meta": {
-    "releaseDate": "9/23/2026",
-    "nextRelease": "9/30/2026"
+    "releaseDate": "9/30/2026",
+    "nextRelease": "10/7/2026",
+    "latestFrom": null
   },
-  "updatedAt": "2026-09-30T06:36:11.618Z",
+  "updatedAt": "2026-09-30T20:01:10.434Z",
   "series": [
     { "date": "1990-11-09", "value": 16588 },
     { "date": "1990-11-16", "value": 17019 },
@@ -1879,6 +1880,7 @@
     { "date": "2026-08-28", "value": 20675 },
     { "date": "2026-09-04", "value": 19313 },
     { "date": "2026-09-11", "value": 21255 },
-    { "date": "2026-09-18", "value": 21050 }
+    { "date": "2026-09-18", "value": 21050 },
+    { "date": "2026-09-25", "value": 21500 }
   ]
 }
