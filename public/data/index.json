@@ -1,40 +1,44 @@
 {
-  "generatedAt": "2026-09-30T06:54:43.167Z",
+  "generatedAt": "2026-09-30T14:47:47.373Z",
   "status": {
     "wti": {
       "state": "ok",
       "asOf": "2026-09-22",
-      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "checkedAt": "2026-09-30T14:51:29.643Z",
       "releaseDate": "9/23/2026",
       "nextRelease": "9/30/2026"
     },
     "oil-use": {
-      "state": "ok",
+      "state": "failed",
       "asOf": "2026-09-18",
-      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "checkedAt": "2026-09-30T14:51:29.643Z",
       "releaseDate": "9/23/2026",
-      "nextRelease": "9/30/2026"
+      "nextRelease": "9/30/2026",
+      "detail": "503 Service Unavailable for https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WRPUPUS2&f=W"
     },
     "commercial": {
       "state": "ok",
-      "asOf": "2026-09-18",
-      "checkedAt": "2026-09-30T06:54:43.167Z",
-      "releaseDate": "9/23/2026",
-      "nextRelease": "9/30/2026"
+      "asOf": "2026-09-25",
+      "checkedAt": "2026-09-30T14:50:00.925Z",
+      "releaseDate": "9/30/2026",
+      "nextRelease": null,
+      "latestFrom": "https://ir.eia.gov/wpsr/table4.csv"
     },
     "net-imports": {
-      "state": "ok",
+      "state": "failed",
       "asOf": "2026-09-18",
-      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "checkedAt": "2026-09-30T14:51:29.643Z",
       "releaseDate": "9/23/2026",
-      "nextRelease": "9/30/2026"
+      "nextRelease": "9/30/2026",
+      "detail": "503 Service Unavailable for https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WTTNTUS2&f=W"
     },
     "spr": {
       "state": "ok",
-      "asOf": "2026-09-18",
-      "checkedAt": "2026-09-30T06:54:43.167Z",
-      "releaseDate": "9/23/2026",
-      "nextRelease": "9/30/2026"
+      "asOf": "2026-09-25",
+      "checkedAt": "2026-09-30T14:50:00.925Z",
+      "releaseDate": "9/30/2026",
+      "nextRelease": null,
+      "latestFrom": "https://ir.eia.gov/wpsr/table4.csv"
     }
   },
   "id": "index"

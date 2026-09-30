@@ -1,13 +1,14 @@
 {
   "id": "spr",
-  "asOf": "2026-09-18",
+  "asOf": "2026-09-25",
   "sourceLabel": "EIA weekly U.S. crude stocks in the SPR (WCSSTUS1), thousand barrels",
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCSSTUS1&f=W",
   "meta": {
-    "releaseDate": "9/23/2026",
-    "nextRelease": "9/30/2026"
+    "releaseDate": "9/30/2026",
+    "nextRelease": null,
+    "latestFrom": "https://ir.eia.gov/wpsr/table4.csv"
   },
-  "updatedAt": "2026-09-30T06:36:11.618Z",
+  "updatedAt": "2026-09-30T14:50:00.925Z",
   "series": [
     { "date": "1982-08-20", "value": 270455 },
     { "date": "1982-08-27", "value": 272603 },
@@ -2303,6 +2304,7 @@
     { "date": "2026-08-28", "value": 286604 },
     { "date": "2026-09-04", "value": 285360 },
     { "date": "2026-09-11", "value": 284957 },
-    { "date": "2026-09-18", "value": 284552 }
+    { "date": "2026-09-18", "value": 284552 },
+    { "date": "2026-09-25", "value": 283767 }
   ]
 }

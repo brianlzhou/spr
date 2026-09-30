@@ -1,13 +1,14 @@
 {
   "id": "commercial",
-  "asOf": "2026-09-18",
+  "asOf": "2026-09-25",
   "sourceLabel": "EIA weekly U.S. commercial crude stocks, excluding the SPR (WCESTUS1), thousand barrels",
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
   "meta": {
-    "releaseDate": "9/23/2026",
-    "nextRelease": "9/30/2026"
+    "releaseDate": "9/30/2026",
+    "nextRelease": null,
+    "latestFrom": "https://ir.eia.gov/wpsr/table4.csv"
   },
-  "updatedAt": "2026-09-30T06:36:11.618Z",
+  "updatedAt": "2026-09-30T14:50:00.925Z",
   "series": [
     { "date": "1982-08-20", "value": 338764 },
     { "date": "1982-08-27", "value": 336138 },
@@ -2303,6 +2304,7 @@
     { "date": "2026-08-28", "value": 424460 },
     { "date": "2026-09-04", "value": 424069 },
     { "date": "2026-09-11", "value": 423429 },
-    { "date": "2026-09-18", "value": 426398 }
+    { "date": "2026-09-18", "value": 426398 },
+    { "date": "2026-09-25", "value": 427320 }
   ]
 }

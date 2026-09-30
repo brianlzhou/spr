@@ -129,3 +129,35 @@ export function parseEiaDailyTable(html) {
 
   return { series: uniqueByDate(series), ...releaseDates(htmlToText(html)) };
 }
+
+// EIA's Weekly Petroleum Status Report table 4 (ir.eia.gov/wpsr/table4.csv),
+// published at 10:30 a.m. Eastern on release day, often before the history
+// pages update. Its first two value columns are this week and last week, in
+// million barrels; returns them in thousand barrels to match the history
+// series.
+export function parseWpsrTable4(csv, stub) {
+  const rows = csv
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => [...line.matchAll(/"([^"]*)"/g)].map((match) => match[1]));
+  const header = rows[0] ?? [];
+  const row = rows.find((cells) => cells[0] === stub);
+
+  if (!row) {
+    return [];
+  }
+
+  return [1, 2]
+    .map((column) => {
+      const [month, day, year] = String(header[column] ?? "").split("/").map(Number);
+      const value = parseNumber(row[column]);
+
+      if (!year || !Number.isFinite(value)) {
+        return null;
+      }
+
+      return { date: toIsoDate(2000 + year, month, day), value: Math.round(value * 1000) };
+    })
+    .filter(Boolean)
+    .sort((left, right) => left.date.localeCompare(right.date));
+}

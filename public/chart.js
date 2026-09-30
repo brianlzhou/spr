@@ -49,7 +49,7 @@ export function formatWords(value, unit) {
 
   if (unit.exact) return Math.round(amount).toLocaleString("en-US");
   if (amount >= 1e9) return `${trimZero((amount / 1e9).toFixed(amount >= 1e10 ? 0 : 2))} billion`;
-  if (amount >= 1e6) return `${trimZero((amount / 1e6).toFixed(amount >= 1e8 ? 0 : 1))} million`;
+  if (amount >= 1e6) return `${trimZero((amount / 1e6).toFixed(1))} million`;
   if (Math.abs(amount) < 100) return trimZero(amount.toFixed(1));
   return Math.round(amount).toLocaleString("en-US");
 }

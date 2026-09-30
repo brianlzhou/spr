@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { htmlToText, parseEiaDailyTable, parseEiaWeeklyTable } from "../scraper/parse.js";
+import { htmlToText, parseEiaDailyTable, parseEiaWeeklyTable, parseWpsrTable4 } from "../scraper/parse.js";
 
 const fixturesDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "fixtures");
 const fixture = (name) => readFile(path.join(fixturesDir, name), "utf8");
@@ -38,4 +38,15 @@ test("parseEiaDailyTable places each price on its weekday and skips holidays", a
   assert.deepEqual(parsed.series.find((point) => point.date === "2020-04-20"), { date: "2020-04-20", value: -36.98 });
   assert.equal(parsed.series.length, 2 + 5 + 5 + 5);
   assert.equal(parsed.releaseDate, "9/23/2026");
+});
+
+test("parseWpsrTable4 reads this week and last week in thousand barrels", async () => {
+  const csv = await fixture("wpsr-table4.csv");
+
+  assert.deepEqual(parseWpsrTable4(csv, "SPR"), [
+    { date: "2026-09-18", value: 284552 },
+    { date: "2026-09-25", value: 283767 }
+  ]);
+  assert.deepEqual(parseWpsrTable4(csv, "Commercial (Excluding SPR)").at(-1), { date: "2026-09-25", value: 427320 });
+  assert.deepEqual(parseWpsrTable4(csv, "No such row"), []);
 });
