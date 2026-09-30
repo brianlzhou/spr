@@ -1,0 +1,22 @@
+{
+  "name": "spr",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tracks the U.S. Strategic Petroleum Reserve from EIA data: a static page, refreshed by GitHub Actions.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brianlzhou/spr.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node server/index.js",
+    "start": "node server/index.js",
+    "scrape": "node scraper/run.js",
+    "card": "node scripts/card.js",
+    "test": "node --test"
+  }
+}

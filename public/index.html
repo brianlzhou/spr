@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Strategic Petroleum Reserve, tracked</title>
+    <meta name="description" content="How much oil is left in America's emergency reserve, how fast it's leaving, how low it can safely go, and which president sold it best. Updated from EIA data twice a day.">
+    <meta name="color-scheme" content="light dark">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Strategic Petroleum Reserve, tracked">
+    <meta property="og:description" content="How much emergency oil is left, how fast it's leaving, and how low it can safely go. Updated from EIA data.">
+    <meta property="og:url" content="https://spr.brianzhou.org/">
+    <meta property="og:image" content="https://spr.brianzhou.org/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Strategic Petroleum Reserve, tracked">
+    <meta name="twitter:description" content="How much emergency oil is left, how fast it's leaving, and how low it can safely go.">
+    <meta name="twitter:image" content="https://spr.brianzhou.org/og.png">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='6' fill='%23f3f3f0' stroke='%230b0b0b' stroke-width='2'/%3E%3Crect x='5' y='19' width='22' height='8' rx='3' fill='%23eb6834'/%3E%3C/svg%3E">
+    <link rel="preload" href="fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="styles.css?v=4">
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="wordmark" href="#top">Strategic Petroleum Reserve</a>
+      <nav aria-label="Sections">
+        <a href="#release">2026 release</a>
+        <a href="#blind">Flying blind</a>
+        <a href="#how-low">How low</a>
+        <a href="#presidents">Presidents</a>
+        <a href="#refill">Refill</a>
+        <a href="#method">Data</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap" aria-labelledby="headline">
+        <h1 id="headline">Loading the latest readings…</h1>
+        <p class="lede" id="lede"></p>
+        <aside class="latest" id="latest" aria-label="Latest news"></aside>
+        <p class="stamp" id="stamp"></p>
+        <div id="hero-stats"></div>
+        <div id="hero-chart"></div>
+      </section>
+
+      <div id="sections"></div>
+    </main>
+
+    <footer class="footer wrap">
+      <p>Figures from the U.S. Energy Information Administration, the Department of Energy, GAO and the reporting linked in each section.
+        Code and every past reading: <a href="https://github.com/brianlzhou/spr">github.com/brianlzhou/spr</a>.</p>
+    </footer>
+
+    <noscript>
+      <p class="wrap">This page needs JavaScript to draw its charts. The raw figures are in <a href="data/spr.json">data/spr.json</a>.</p>
+    </noscript>
+
+    <script type="module" src="app.js?v=4"></script>
+  </body>
+</html>

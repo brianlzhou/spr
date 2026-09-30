@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-09-30T06:54:43.167Z",
+  "status": {
+    "wti": {
+      "state": "ok",
+      "asOf": "2026-09-22",
+      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "releaseDate": "9/23/2026",
+      "nextRelease": "9/30/2026"
+    },
+    "oil-use": {
+      "state": "ok",
+      "asOf": "2026-09-18",
+      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "releaseDate": "9/23/2026",
+      "nextRelease": "9/30/2026"
+    },
+    "commercial": {
+      "state": "ok",
+      "asOf": "2026-09-18",
+      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "releaseDate": "9/23/2026",
+      "nextRelease": "9/30/2026"
+    },
+    "net-imports": {
+      "state": "ok",
+      "asOf": "2026-09-18",
+      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "releaseDate": "9/23/2026",
+      "nextRelease": "9/30/2026"
+    },
+    "spr": {
+      "state": "ok",
+      "asOf": "2026-09-18",
+      "checkedAt": "2026-09-30T06:54:43.167Z",
+      "releaseDate": "9/23/2026",
+      "nextRelease": "9/30/2026"
+    }
+  },
+  "id": "index"
+}
