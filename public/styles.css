@@ -882,6 +882,66 @@ table.trader {
   box-shadow: inset 0 0 0 1.5px var(--c);
 }
 
+/* What the two big releases earned: a sale against its buyback, a loan
+   against what's owed back. */
+.trips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px 36px;
+  margin-top: 20px;
+}
+
+.trip-when {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.trip-figure {
+  margin-top: 6px;
+  font-size: 34px;
+  font-weight: 600;
+  font-stretch: 88%;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.trip-caption {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+
+.trip .rate {
+  margin-top: 14px;
+}
+
+.trip .rate-track {
+  border-right: 0;
+}
+
+.rate-extra {
+  position: absolute;
+  inset-block: 0;
+  border-radius: 0 4px 4px 0;
+  background: color-mix(in srgb, var(--c) 14%, var(--page));
+  box-shadow: inset 0 0 0 1.5px var(--c);
+}
+
+.is-neutral .rate-fill:has(+ .rate-extra) {
+  border-radius: 0;
+}
+
+.trip-text {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
 .rate figcaption {
   margin-top: 12px;
   font-size: 13.5px;

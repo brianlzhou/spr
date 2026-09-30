@@ -24,6 +24,7 @@ import {
   MANDATED_SALES,
   RELEASES,
   RELEASE_2026,
+  ROUND_TRIPS,
   SOURCES,
   UNKNOWNS,
   WEAR
@@ -793,7 +794,7 @@ function renderTrade(data) {
   const table = el("table", "trader");
   const head = el("tr");
 
-  for (const column of ["President", "Let out", "Average price", "vs. term average", "Took in", "Average price", "Net cash"]) {
+  for (const column of ["President", "Let out", "Average price", "vs. term average", "Took in", "Average price", "Net value"]) {
     head.append(el("th", null, column));
   }
 
@@ -826,6 +827,8 @@ function renderTrade(data) {
   const scroll = el("div", "table-scroll");
   scroll.append(table);
 
+  const sale = ROUND_TRIPS.sale2022;
+
   main.append(
     chart,
     legend,
@@ -833,13 +836,100 @@ function renderTrade(data) {
     el(
       "p",
       "fine",
-      `EIA reports the level once a week, so each week's change is priced at the average of that week's daily spot prices. These are implied trades: real sales, loans and exchanges are priced differently, loans come back as oil, and a release is not profit. ${
+      `EIA reports the level weekly, so each week's change is priced at that week's average daily spot price and credited to whoever was president. Oil counts when it moved, not when it was bought: barrels that arrived from January 20 to May 2025, including Biden's last purchases, count under Trump's second term. A week with both sales and purchases shows only the net change, so \u201cTook in\u201d can be less than DOE's purchase totals. Net value is the oil let out minus the oil taken in, at those prices; it isn't cash or profit, which are below. ${
+        mostCash?.name === "Biden"
+          ? `\u201cMost cash\u201d goes to Biden: the 2022 sale alone brought in nearly $${sale.revenue} billion, more than the market value of all the oil any other president let out. `
+          : ""
+      }${
         excludedKb ? `The ${formatBarrels(excludedKb)} barrels that moved before 1986 are left out, because the price series starts that year. ` : ""
       }\u201cvs. term average\u201d compares each average price with the average daily oil price over that president's term, so a president who sold when oil was cheap for everyone isn't penalized. Rankings count only presidents who let out at least 10 million barrels.`
-    )
+    ),
+    el("h3", "sub", "What the trades earned"),
+    el("p", null, "Money from a sale isn't profit. The government comes out ahead only if it gets the oil back for less than it sold it for, or gets more oil back than it lent."),
+    roundTrips()
   );
 
-  aside.append(note("Sources", sourceList(SOURCES.eia, { label: "EIA daily WTI spot price", url: "https://www.eia.gov/dnav/pet/hist/RWTCD.htm" })));
+  aside.append(
+    note("Sources", sourceList(SOURCES.eia, { label: "EIA daily WTI spot price", url: "https://www.eia.gov/dnav/pet/hist/RWTCD.htm" })),
+    note("Profit figures", sourceList(sale.sources, ROUND_TRIPS.loans2026.sources))
+  );
+}
+
+// The two big releases as round trips: 2022 sold and bought back, 2026 lent
+// and owed back with interest in oil. Each bar row reuses the rate figure.
+function roundTrips() {
+  const { sale2022: sale, loans2026: loans } = ROUND_TRIPS;
+  const owed = 100 + loans.premium;
+  const card = ({ when, figure, caption, scale, rows, key, text }) => {
+    const block = el("div", "trip");
+    block.append(el("p", "trip-when", when), el("p", "trip-figure", figure), el("p", "trip-caption", caption));
+    const bars = el("figure", "rate");
+    const ends = el("div", "rate-scale");
+    ends.append(el("span", null, "0"), el("span", null, scale.label));
+    const list = el("ul", "rate-rows");
+
+    for (const row of rows) {
+      const item = el("li", `rate-row${row.tone ? ` is-${row.tone}` : ""}`);
+      const label = el("span", "rate-label", row.label);
+      label.append(el("small", null, row.detail));
+      const track = el("span", "rate-track");
+      const fill = el("span", "rate-fill");
+      fill.style.width = `${(row.value / scale.max) * 100}%`;
+      track.append(fill);
+
+      // The part of a bar that is a gap or still owed is drawn as an outline.
+      if (row.extra) {
+        const extra = el("span", "rate-extra");
+        extra.style.left = `calc(${(row.value / scale.max) * 100}% + 2px)`;
+        extra.style.width = `calc(${(row.extra / scale.max) * 100}% - 2px)`;
+        track.append(extra);
+      }
+
+      track.setAttribute("aria-hidden", "true");
+      item.append(label, el("span", "rate-value", row.display), track);
+      list.append(item);
+    }
+
+    bars.append(ends, list, el("figcaption", null, key));
+    block.append(bars, el("p", "trip-text", text));
+    return block;
+  };
+
+  const grid = el("div", "trips");
+  grid.append(
+    card({
+      when: "2022, Biden",
+      figure: `$${sale.profit}B`,
+      caption: `profit by DOE's count, on nearly $${sale.revenue}B of sales`,
+      scale: { max: 100, label: "$100 a barrel" },
+      rows: [
+        { label: "Sold", detail: `${millions(sale.sold)}M barrels`, value: sale.soldPrice, display: `$${sale.soldPrice}` },
+        {
+          label: "Replaced",
+          detail: "2023 to 2025",
+          value: sale.replacedPrice,
+          extra: sale.soldPrice - sale.replacedPrice,
+          display: `$${sale.replacedPrice}`,
+          tone: "neutral"
+        }
+      ],
+      key: `Outlined: the $${(sale.soldPrice - sale.replacedPrice).toFixed(2)} a barrel gap, where the profit comes from.`,
+      text: `DOE sold ${millions(sale.sold)} million barrels after Russia invaded Ukraine, at about $${sale.soldPrice} each. It replaced them, and 20 million more, at an average of $${sale.replacedPrice}: ${millions(sale.bought)} million barrels bought at under $${sale.boughtPrice}, and ${millions(sale.cancelled)} million kept by cancelling sales Congress had scheduled, at about $${sale.cancelledPrice}. The profit is the gap of about $${Math.round(sale.soldPrice - sale.replacedPrice)} a barrel, not the $${sale.revenue} billion that came in. The Wall Street Journal's tally in 2022 was almost $4 billion.`
+    }),
+    card({
+      when: "2026, Trump's second term",
+      figure: `$${loans.savings}B+`,
+      caption: "in savings, Energy Secretary Chris Wright says",
+      scale: { max: owed, label: `${owed} barrels` },
+      rows: [
+        { label: "Lent", detail: "barrels", value: 100, display: "100" },
+        { label: "Owed back", detail: `with DOE's ${loans.premium}% premium`, value: 100, extra: loans.premium, display: String(owed), tone: "neutral" }
+      ],
+      key: "Outlined: the premium, still to be repaid.",
+      text: `No cash came in: the 2026 release was lent, more than ${millions(loans.lent)} million barrels so far, and oil companies repay it in oil with extra barrels as interest. DOE says its earlier exchanges drew a ${loans.premium}% premium. The gain arrives only as the oil does, and Reuters reports repayment isn't slated to finish until late 2028.`
+    })
+  );
+  return grid;
 }
 
 // ---------------------------------------------------------------------------

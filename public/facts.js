@@ -56,6 +56,18 @@ export const SOURCES = {
     label: "DOE, Long-Term Strategic Review of the SPR (2016)",
     url: "https://www.energy.gov/sites/prod/files/2016/09/f33/Long-Term%20Strategic%20Review%20of%20the%20U.%20S.%20Strategic%20Petroleum%20Reserve%20Report%20to%20Congress_0.pdf"
   },
+  doeNov2024: {
+    label: "DOE, Nov 8 2024",
+    url: "https://www.energy.gov/articles/biden-harris-administration-makes-final-purchase-strategic-petroleum-reserve-secures-200"
+  },
+  reutersNov2024: {
+    label: "Reuters, Nov 8 2024 (reprinted by BOE Report)",
+    url: "https://boereport.com/2024/11/08/biden-administration-buys-last-oil-for-emergency-reserve-as-fund-taps-out/"
+  },
+  wsjDec2022: {
+    label: "Business Insider, citing the Wall Street Journal, Dec 19 2022",
+    url: "https://finance.yahoo.com/news/us-made-4-billion-selling-160400735.html"
+  },
   sandia: { label: "Sandia, cavern drawdown availability report", url: "https://www.osti.gov/servlets/purl/2585591" },
   spglobal: { label: "S&P Global, a rare tour of the SPR", url: "https://www.spglobal.com/energy/en/news-research/blog/crude-oil/061516-a-rare-tour-of-the-strategic-petroleum-reserve" }
 };
@@ -119,6 +131,37 @@ export const LOANS = {
   returningSource: SOURCES.bloombergSep29,
   lateNote: "reports premiums of up to 24% and repayment that isn't slated to finish until late 2028.",
   lateSource: SOURCES.reutersSep29
+};
+
+// What the two big releases earned, as DOE counts it. Money is in billions of
+// dollars, prices in dollars a barrel.
+export const ROUND_TRIPS = {
+  // Sold in 2022 after Russia invaded Ukraine; replaced by buying 59 million
+  // barrels at under $76 and cancelling 140 million barrels of sales Congress
+  // had scheduled, about $74 a barrel. DOE: "200 million barrels … at an
+  // average price of $74.75." Reuters, citing DOE: sold at $95, "a profit of
+  // about $3.5 billion." The Wall Street Journal's tally at the time, at
+  // $96.25 a barrel, was "almost $4 billion".
+  sale2022: {
+    sold: 180000,
+    soldPrice: 95,
+    revenue: 17,
+    bought: 59000,
+    boughtPrice: 76,
+    cancelled: 140000,
+    cancelledPrice: 74,
+    replacedPrice: 74.75,
+    profit: 3.5,
+    sources: [SOURCES.doeNov2024, SOURCES.reutersNov2024, SOURCES.wsjDec2022]
+  },
+  // Lent in 2026 and repaid in oil. Wright: the exchanges will save
+  // "taxpayers more than $3 billion."
+  loans2026: {
+    lent: 133000,
+    premium: LOANS.premium,
+    savings: 3,
+    sources: [SOURCES.doeSep29, SOURCES.reutersSep29]
+  }
 };
 
 // Designed peak drawdown: 4.4 million barrels a day for up to 90 days,
