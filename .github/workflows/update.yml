@@ -2,9 +2,11 @@ name: Update data
 
 on:
   schedule:
-    # Twice a day. EIA publishes the weekly SPR figure on Wednesdays at
-    # 10:30 a.m. Eastern, so the afternoon run picks it up the same day.
+    # Twice a day, plus hourly on Wednesday afternoons (UTC): EIA publishes
+    # the weekly figures then, at 10:30 a.m. Eastern, and GitHub can start
+    # scheduled runs hours late. Runs that find nothing new don't commit.
     - cron: "17 15,22 * * *"
+    - cron: "47 14-23 * * 3"
   push:
     branches: [main]
   workflow_dispatch:
