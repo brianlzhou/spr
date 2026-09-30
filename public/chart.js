@@ -57,7 +57,7 @@ export function formatWords(value, unit) {
 // Compact form for tiles, end labels and tooltips: "285M", "1.4B", "784".
 export function formatCompact(amount, digits) {
   const abs = Math.abs(amount);
-  const pick = (scaled) => trimZero(scaled.toFixed(digits ?? (Math.abs(scaled) >= 1000 ? 0 : 1)));
+  const pick = (scaled) => trimZero(scaled.toFixed(digits ?? (Math.abs(scaled) >= 100 ? 0 : 1)));
 
   if (abs >= 1e9) return `${pick(amount / 1e9)}B`;
   if (abs >= 1e6) return `${pick(amount / 1e6)}M`;
