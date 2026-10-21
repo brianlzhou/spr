@@ -1,43 +1,43 @@
 {
-  "generatedAt": "2026-10-16T00:27:56.910Z",
+  "generatedAt": "2026-10-21T18:58:56.988Z",
   "status": {
     "wti": {
       "state": "ok",
-      "asOf": "2026-10-14",
-      "checkedAt": "2026-10-16T00:27:56.910Z",
-      "releaseDate": "10/15/2026",
-      "nextRelease": "10/21/2026"
+      "asOf": "2026-10-20",
+      "checkedAt": "2026-10-21T18:58:56.988Z",
+      "releaseDate": "10/21/2026",
+      "nextRelease": "10/28/2026"
     },
     "oil-use": {
       "state": "ok",
-      "asOf": "2026-10-09",
-      "checkedAt": "2026-10-16T00:27:56.910Z",
-      "releaseDate": "10/15/2026",
-      "nextRelease": "10/21/2026",
+      "asOf": "2026-10-16",
+      "checkedAt": "2026-10-21T18:58:56.988Z",
+      "releaseDate": "10/21/2026",
+      "nextRelease": "10/28/2026",
       "latestFrom": null
     },
     "commercial": {
       "state": "ok",
-      "asOf": "2026-10-09",
-      "checkedAt": "2026-10-16T00:27:56.910Z",
-      "releaseDate": "10/15/2026",
-      "nextRelease": "10/21/2026",
+      "asOf": "2026-10-16",
+      "checkedAt": "2026-10-21T18:58:56.988Z",
+      "releaseDate": "10/21/2026",
+      "nextRelease": "10/28/2026",
       "latestFrom": null
     },
     "net-imports": {
       "state": "ok",
-      "asOf": "2026-10-09",
-      "checkedAt": "2026-10-16T00:27:56.910Z",
-      "releaseDate": "10/15/2026",
-      "nextRelease": "10/21/2026",
+      "asOf": "2026-10-16",
+      "checkedAt": "2026-10-21T18:58:56.988Z",
+      "releaseDate": "10/21/2026",
+      "nextRelease": "10/28/2026",
       "latestFrom": null
     },
     "spr": {
       "state": "ok",
-      "asOf": "2026-10-09",
-      "checkedAt": "2026-10-16T00:27:56.910Z",
-      "releaseDate": "10/15/2026",
-      "nextRelease": "10/21/2026",
+      "asOf": "2026-10-16",
+      "checkedAt": "2026-10-21T18:58:56.988Z",
+      "releaseDate": "10/21/2026",
+      "nextRelease": "10/28/2026",
       "latestFrom": null
     }
   },
