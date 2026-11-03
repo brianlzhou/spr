@@ -4,11 +4,11 @@
   "sourceLabel": "EIA weekly U.S. petroleum products supplied (WRPUPUS2), thousand barrels a day",
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WRPUPUS2&f=W",
   "meta": {
-    "releaseDate": "10/28/2026",
-    "nextRelease": "11/4/2026",
+    "releaseDate": "11/4/2026",
+    "nextRelease": "11/11/2026",
     "latestFrom": null
   },
-  "updatedAt": "2026-10-28T19:54:36.544Z",
+  "updatedAt": "2026-11-03T21:04:09.481Z",
   "series": [
     { "date": "1990-11-09", "value": 16588 },
     { "date": "1990-11-16", "value": 17019 },
