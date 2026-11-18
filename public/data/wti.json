@@ -1,13 +1,13 @@
 {
   "id": "wti",
-  "asOf": "2026-11-11",
+  "asOf": "2026-11-17",
   "sourceLabel": "EIA daily WTI spot price, Cushing (RWTC), dollars a barrel",
   "sourceUrl": "https://www.eia.gov/dnav/pet/hist/RWTCD.htm",
   "meta": {
-    "releaseDate": "11/12/2026",
-    "nextRelease": "11/18/2026"
+    "releaseDate": "11/18/2026",
+    "nextRelease": "11/25/2026"
   },
-  "updatedAt": "2026-11-12T21:51:17.483Z",
+  "updatedAt": "2026-11-18T22:23:04.381Z",
   "series": [
     { "date": "1986-01-02", "value": 25.56 },
     { "date": "1986-01-03", "value": 26 },
@@ -9551,6 +9551,10 @@
     { "date": "2026-11-06", "value": 94.37 },
     { "date": "2026-11-09", "value": 90.4 },
     { "date": "2026-11-10", "value": 89.62 },
-    { "date": "2026-11-11", "value": 89.62 }
+    { "date": "2026-11-11", "value": 89.62 },
+    { "date": "2026-11-12", "value": 92.3 },
+    { "date": "2026-11-13", "value": 91.96 },
+    { "date": "2026-11-16", "value": 89.24 },
+    { "date": "2026-11-17", "value": 89.53 }
   ]
 }
